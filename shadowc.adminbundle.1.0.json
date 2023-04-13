@@ -1,6 +1,6 @@
 {
     "manifests": {
-        "shadowc/admin-bundle": {
+        "shadowc/adminbundle": {
             "manifest": {
                 "bundles": {
                     "ShadowC\\AdminBundle\\AdminBundle": [
