@@ -1,0 +1,14 @@
+{
+    "recipes": {
+        "shadowc/admin-bundle": [
+            "1.0"
+        ]
+    },
+    "branch": "main",
+    "is_contrib": true,
+    "_links": {
+        "repository": "github.com/shadowc/PrivateRecipes",
+        "origin_template": "{package}:{version}@github.com/shadowc/PrivateRecipes:main",
+        "recipe_template": "https://api.github.com/repos/shadowc/PrivateRecipes/contents/{package_dotted}.{version}.json"
+    }
+}

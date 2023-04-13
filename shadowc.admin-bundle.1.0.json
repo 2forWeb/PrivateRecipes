@@ -1,0 +1,17 @@
+{
+    "manifests": {
+        "shadowc/admin-bundle": {
+            "manifest": {
+                "bundles": {
+                    "ShadowC\\AdminBundle\\AdminBundle": [
+                        "all"
+                    ]
+                },
+                "copy-from-recipe": {
+                    "config/": "%CONFIG_DIR%"
+                }
+            },
+            "ref": "ea5b9d24c5ccfb010d6d4d0822dcc8455a7e2a0e"
+        }
+    }
+}
