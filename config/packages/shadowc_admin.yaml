@@ -1,3 +1,5 @@
 framework:
     assets:
-        sc_admin: '%kernel.project_dir%/public/bundles/admin/manifest.json'
+        packages:
+            sc_admin: 
+                json_manifest_path: '%kernel.project_dir%/public/bundles/admin/manifest.json'
