@@ -1,0 +1,3 @@
+framework:
+    assets:
+        sc_admin: '%kernel.project_dir%/public/bundles/admin/manifest.json'
