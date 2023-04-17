@@ -11,7 +11,15 @@
                     "config/": "%CONFIG_DIR%"
                 }
             },
-            "ref": "ea5b9d24c5ccfb010d6d4d0822dcc8455a7e2a0e"
+            "files": {
+                ".gitignore": {
+                    "contents": [
+                        "/assets/controllers/sc-admin"
+                    ],
+                    "executable": false
+                }
+            },
+            "ref": "8ce0da26fab8de354eae45cf555e017c5557cd89"
         }
     }
 }
