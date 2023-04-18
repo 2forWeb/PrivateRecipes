@@ -1,10 +1,8 @@
 framework:
-    default_locale: en
-    translator:
-        default_path: '%kernel.project_dir%/translations'
-        fallbacks:
-            - en
     assets:
         packages:
             sc_admin: 
                 json_manifest_path: '%kernel.project_dir%/public/bundles/admin/manifest.json'
+
+shadowc_admin:
+    main_script_entry: 'app'
