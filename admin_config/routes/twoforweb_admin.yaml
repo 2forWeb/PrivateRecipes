@@ -1,3 +1,0 @@
-sc_admin_bundle:
-    resource: '@AdminBundle/config/routes.yaml'
-    prefix: /

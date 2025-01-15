@@ -8,7 +8,8 @@
                     ]
                 },
                 "copy-from-recipe": {
-                    "admin-config/": "%CONFIG_DIR%"
+                    "config/": "%CONFIG_DIR%",
+                    "assets/": "%ASSETS_DIR%"
                 }
             },
             "files": {
@@ -21,6 +22,39 @@
                 "assets/admin.js": {
                     "contents": [
                         "import 'bootstrap.js';"
+                    ],
+                    "executable": false
+                },
+                "config/packages/2forweb_admin.yaml": {
+                    "contents": [
+                        "framework:\n",
+                        "    assets:\n",
+                        "        packages:\n",
+                        "            sc_admin: \n",
+                        "                json_manifest_path: '%kernel.project_dir%/public/bundles/admin/manifest.json'\n",
+                        "\n",
+                        "admin:\n",
+                        "    main_asset_mapper_entry: admin\n",
+                        "    favicon_entry: 'images/favicon.png'\n",
+                        "    favicon_type: 'image/png'\n",
+                        "    storage:\n",
+                        "        # The storage driver to use. It can be none, filesystem or dsn\n",
+                        "        driver: 'none'\n",
+                        "        public_path: /public/storage\n",
+                        "        public_url: /storage\n",
+                        "        private_path: /assets/storage\n",
+                        "        # Json string with storage metadata needed to log in to the dsn storage\n",
+                        "        storage_metadata: ''\n",
+                        "        # Weather to allow for gallery management under public storage\n",
+                        "        allow_galleries: true\n"
+                    ],
+                    "executable": false
+                },
+                "config/routes/2forweb_admin.yaml": {
+                    "contents": [
+                        "admin_bundle:\n",
+                        "    resource: '@AdminBundle/config/routes.yaml'\n",
+                        "    prefix: /\n"
                     ],
                     "executable": false
                 },
@@ -73,7 +107,7 @@
                     "requires": "symfony/asset-mapper"
                 }
             ],
-            "ref": "2f13971d7ce7673a04b98b29a087408489389de1"
+            "ref": "674e89c1262e721f081425accd3ef88c64a4098e"
         }
     }
 }
