@@ -9,16 +9,10 @@
                 },
                 "copy-from-recipe": {
                     "config/": "%CONFIG_DIR%",
-                    "assets/": "%ASSETS_DIR%"
+                    "assets/": "assets/"
                 }
             },
             "files": {
-                ".gitignore": {
-                    "contents": [
-                        "/assets/controllers/sc-admin"
-                    ],
-                    "executable": false
-                },
                 "assets/admin.js": {
                     "contents": [
                         "import 'bootstrap.js';"
@@ -70,6 +64,11 @@
             },
             "add-lines": [
                 {
+                    "file": ".gitignore",
+                    "content": "\n\n###> TwoForWeb/AdminBundle ###\n/assets/controllers/sc-admin\n###< TwoForWeb/AdminBundle ###\n",
+                    "position": "bottom"
+                },
+                {
                     "file": "packages/asset_mapper.yaml",
                     "content": "\n            - vendor/2forweb/adminbundle/assets/dist/",
                     "position": "after_target",
@@ -107,7 +106,7 @@
                     "requires": "symfony/asset-mapper"
                 }
             ],
-            "ref": "674e89c1262e721f081425accd3ef88c64a4098e"
+            "ref": "c1e8f020a70f35e3279ed639ccce2934b299e3b3"
         }
     }
 }
