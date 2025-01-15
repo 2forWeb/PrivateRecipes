@@ -1,6 +1,6 @@
 {
     "recipes": {
-        "twoforweb/adminbundle": [
+        "2forweb/adminbundle": [
             "7.2.7"
         ]
     },
@@ -8,7 +8,7 @@
     "is_contrib": true,
     "_links": {
         "repository": "github.com/2forweb/PrivateRecipes",
-        "origin_template": "{package}:{version}@github.com/twoforweb/PrivateRecipes:main",
+        "origin_template": "{package}:{version}@github.com/2forweb/PrivateRecipes:main",
         "recipe_template": "https://raw.githubusercontent.com/2forWeb/PrivateRecipes/main/{package_dotted}.{version}.json"
     }
 }
