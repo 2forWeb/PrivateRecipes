@@ -1,6 +1,6 @@
 {
     "manifests": {
-        "twoforweb/adminbundle": {
+        "2forweb/adminbundle": {
             "manifest": {
                 "bundles": {
                     "TwoForWeb\\AdminBundle\\AdminBundle": [
@@ -73,7 +73,7 @@
                     "requires": "symfony/asset-mapper"
                 }
             ],
-            "ref": "a54e11dfa40f727f8334be8063d23a3aacca2a59"
+            "ref": "2f13971d7ce7673a04b98b29a087408489389de1"
         }
     }
 }
