@@ -1,0 +1,79 @@
+{
+    "manifests": {
+        "twoforweb/adminbundle": {
+            "manifest": {
+                "bundles": {
+                    "TwoForWeb\\AdminBundle\\AdminBundle": [
+                        "all"
+                    ]
+                },
+                "copy-from-recipe": {
+                    "admin-config/": "%CONFIG_DIR%"
+                }
+            },
+            "files": {
+                ".gitignore": {
+                    "contents": [
+                        "/assets/controllers/sc-admin"
+                    ],
+                    "executable": false
+                },
+                "assets/admin.js": {
+                    "contents": [
+                        "import 'bootstrap.js';"
+                    ],
+                    "executable": false
+                },
+                "config/packages/stimulus.yaml": {
+                    "contents": [
+                        "stimulus:\n",
+                        "    controller_paths:\n",
+                        "        - '%kernel.project_dir%/assets/controllers\n'",
+                        "        - '%kernel.project_dir%/vendor/2forweb/adminbundle/assets/dist/controllers'\n"
+                    ],
+                    "executable": false
+                }
+            },
+            "add-lines": [
+                {
+                    "file": "packages/asset_mapper.yaml",
+                    "content": "\n            - vendor/2forweb/adminbundle/assets/dist/",
+                    "position": "after_target",
+                    "target": "- assets/",
+                    "warn_if_missing": true,
+                    "requires": "symfony/asset-mapper"
+                },
+                {
+                    "file": ".env",
+                    "content": "\n\n###> TwoForWeb/AdminBundle ###\n# Change this in your .env.local to provide an obfuscated url to the admin panel\nSC_ADMIN_ROUTE_PREFIX=abcd\nSCHEME=https\n###< TwoForWeb/AdminBundle ###\n",
+                    "position": "bottom"
+                },
+                {
+                    "file": "packages/security.yaml",
+                    "content": "\n        app_user_provider:\n        entity:\n            class: TwoForWeb\\AdminBundle\\Entity\\AdminUser\n            property: email",
+                    "position": "after_target",
+                    "target": "providers:",
+                    "warn_if_missing": true,
+                    "requires": "symfony/security-bundle"
+                },
+                {
+                    "file": "packages/security.yaml",
+                    "content": "\n        # Consider replacing the main firewall with this one.\n        admin:\n            lazy: true\n            provider: app_user_provider\n            remember_me:\n                secret: '%kernel.secret%'\n                lifetime: 604800\n                path: /\n            logout:\n                path: /logout\n                target: /\n\n            form_login:\n                login_path: sc_admin_login\n                check_path: sc_admin_login\n                default_target_path: sc_admin_main\n                enable_csrf: true\n",
+                    "position": "after_target",
+                    "target": "firewalls:",
+                    "warn_if_missing": true,
+                    "requires": "symfony/security-bundle"
+                },
+                {
+                    "file": "importmap.php",
+                    "content": "\n    'admin' => [\n        'path' => './assets/admin.js',\n        'entrypoint' => true,\n    ],\n",
+                    "position": "after_target",
+                    "target": "return [",
+                    "warn_if_missing": true,
+                    "requires": "symfony/asset-mapper"
+                }
+            ],
+            "ref": "a54e11dfa40f727f8334be8063d23a3aacca2a59"
+        }
+    }
+}
