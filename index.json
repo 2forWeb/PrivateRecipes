@@ -9,6 +9,6 @@
     "_links": {
         "repository": "github.com/2forweb/PrivateRecipes",
         "origin_template": "{package}:{version}@github.com/2forweb/PrivateRecipes:main",
-        "recipe_template": "https://raw.githubusercontent.com/2forWeb/PrivateRecipes/refs/heads/main/{package_dotted}.{version}.json"
+        "recipe_template": "https://raw.githubusercontent.com/2forWeb/PrivateRecipes/main/{package_dotted}.{version}.json"
     }
 }
