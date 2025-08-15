@@ -1,0 +1,121 @@
+{
+    "manifests": {
+        "2forweb/adminbundle": {
+            "manifest": {
+                "bundles": {
+                    "TwoForWeb\\AdminBundle\\AdminBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": {
+                "config/packages/2forweb_admin.yaml": {
+                    "contents": [
+                        "admin:\n",
+                        "    favicon_entry: 'images/favicon.png'\n",
+                        "    favicon_type: 'image/png'\n",
+                        "    storage:\n",
+                        "        # The storage driver to use. It can be none, filesystem or dsn\n",
+                        "        driver: 'none'\n",
+                        "        public_path: /public/storage\n",
+                        "        public_url: /storage\n",
+                        "        private_path: /assets/storage\n",
+                        "        # Json string with storage metadata needed to log in to the dsn storage\n",
+                        "        storage_metadata: ''\n",
+                        "        # The default allowed image mime_types\n",
+                        "        image_mime_types: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg+xml']\n",
+                        "        # The default allowed file mime_types\n",
+                        "        file_mime_types: ['application/pdf', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'plain/text']\n",
+                        "        menu_entries:\n",
+                        "            # Adds a menu entry to administer all images uploaded\n",
+                        "            show_images: false\n",
+                        "            # Adds a menu entry to administer all image galleries\n",
+                        "            show_galleries: false\n",
+                        "            # Adds a menu entry to administer all files\n",
+                        "            show_files: false,\n"
+                    ],
+                    "executable": false
+                },
+                "config/routes/2forweb_admin.yaml": {
+                    "contents": [
+                        "admin_bundle:\n",
+                        "    resource: '@AdminBundle/config/routes.yaml'\n",
+                        "    prefix: /\n"
+                    ],
+                    "executable": false
+                },
+                "config/packages/stimulus.yaml": {
+                    "contents": [
+                        "stimulus:\n",
+                        "    controller_paths:\n",
+                        "        - '%kernel.project_dir%/assets/controllers\n'",
+                        "        - '%kernel.project_dir%/vendor/2forweb/adminbundle/assets/controllers'\n"
+                    ],
+                    "executable": false
+                },
+                "config/packages/stof_doctrine_extensions.yaml": {
+                    "contents": [
+                        "stof_doctrine_extensions:\n",
+                        "    default_locale: en_US\n",
+                        "    orm:\n",
+                        "        default:\n",
+                        "            sluggable: true\n"
+                    ],
+                    "executable": false
+                }
+            },
+            "add-lines": [
+                {
+                    "file": ".gitignore",
+                    "content": "\n\n###> TwoForWeb/AdminBundle ###\n/node-modules/\n/assets/controllers/\n/assets/react/\n/assets/styles/\n/assets/storage/\n/assets/fonts/\n/assets/images/\n/public/storage\n###< TwoForWeb/AdminBundle ###\n",
+                    "position": "bottom"
+                },
+                {
+                    "file": "config/packages/asset_mapper.yaml",
+                    "content": "\n            - vendor/2forweb/adminbundle/assets/dist/",
+                    "position": "after_target",
+                    "target": "- assets/",
+                    "warn_if_missing": true,
+                    "requires": "symfony/asset-mapper"
+                },
+                {
+                    "file": ".env",
+                    "content": "\n\n###> TwoForWeb/AdminBundle ###\n# Change this in your .env.local to provide an obfuscated url to the admin panel\nSC_ADMIN_ROUTE_PREFIX=abcd\nSCHEME=https\n###< TwoForWeb/AdminBundle ###\n",
+                    "position": "bottom"
+                },
+                {
+                    "file": "config/packages/security.yaml",
+                    "content": "\n        app_user_provider:\n        entity:\n            class: TwoForWeb\\AdminBundle\\Entity\\AdminUser\n            property: email",
+                    "position": "after_target",
+                    "target": "providers:",
+                    "warn_if_missing": true,
+                    "requires": "symfony/security-bundle"
+                },
+                {
+                    "file": "config/packages/security.yaml",
+                    "content": "\n        # Consider replacing the main firewall with this one.\n        admin:\n            lazy: true\n            provider: app_user_provider\n            remember_me:\n                secret: '%kernel.secret%'\n                lifetime: 604800\n                path: /\n            logout:\n                path: /logout\n                target: /\n\n            form_login:\n                login_path: sc_admin_login\n                check_path: sc_admin_login\n                default_target_path: sc_admin_main\n                enable_csrf: true\n",
+                    "position": "after_target",
+                    "target": "firewalls:",
+                    "warn_if_missing": true,
+                    "requires": "symfony/security-bundle"
+                },
+                {
+                    "file": "config/packages/security.yaml",
+                    "content": "    role_hierarchy:\n        SC_ADMIN_USER:\n#           - ROLE_APP_ENTITY\n\n",
+                    "position": "before_target",
+                    "target": "when@test:",
+                    "requires": "symfony/security-bundle"
+                },
+                {
+                    "file": "importmap.php",
+                    "content": "\n    'admin' => [\n        'path' => './vendor/2forweb/adminbundle/assets/admin.js',\n        'entrypoint' => true,\n    ],\n",
+                    "position": "after_target",
+                    "target": "return [",
+                    "warn_if_missing": true,
+                    "requires": "symfony/asset-mapper"
+                }
+            ],
+            "ref": "c1e8f020a70f35e3279ed639ccce2934b299e3b3"
+        }
+    }
+}
