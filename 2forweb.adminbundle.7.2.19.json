@@ -26,13 +26,13 @@
                         "        image_mime_types: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg+xml']\n",
                         "        # The default allowed file mime_types\n",
                         "        file_mime_types: ['application/pdf', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'plain/text']\n",
-                        "        menu_entries:\n",
-                        "            # Adds a menu entry to administer all images uploaded\n",
-                        "            show_images: false\n",
-                        "            # Adds a menu entry to administer all image galleries\n",
-                        "            show_galleries: false\n",
-                        "            # Adds a menu entry to administer all files\n",
-                        "            show_files: false\n"
+                        "    menu_entries:\n",
+                        "        # Adds a menu entry to administer all images uploaded\n",
+                        "        show_images: false\n",
+                        "        # Adds a menu entry to administer all image galleries\n",
+                        "        show_galleries: false\n",
+                        "        # Adds a menu entry to administer all files\n",
+                        "        show_files: false\n"
                     ],
                     "executable": false
                 },
