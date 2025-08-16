@@ -48,7 +48,7 @@
                     "contents": [
                         "stimulus:\n",
                         "    controller_paths:\n",
-                        "        - '%kernel.project_dir%/assets/controllers\n'",
+                        "        - '%kernel.project_dir%/assets/controllers'\n",
                         "        - '%kernel.project_dir%/vendor/2forweb/adminbundle/assets/controllers'\n"
                     ],
                     "executable": false
