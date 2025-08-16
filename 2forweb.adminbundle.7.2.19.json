@@ -97,7 +97,7 @@
                     "contents": [
                         "#! /usr/bin/sh\n",
                         "\n",
-                        "echo '-------------- Performing Tests -----------\\n'\n,",
+                        "echo '-------------- Performing Tests -----------\\n'\n",
                         "\n",
                         "echo '-------------- ESLint and Stylelint -------\\n'\n",
                         "\n",
@@ -220,7 +220,7 @@
                 },
                 {
                     "file": "config/packages/asset_mapper.yaml",
-                    "content": "            - vendor/2forweb/adminbundle/assets/dist/\n",
+                    "content": "            - vendor/2forweb/adminbundle/assets/\n",
                     "position": "after_target",
                     "target": "- assets/",
                     "warn_if_missing": true,
