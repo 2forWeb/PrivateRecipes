@@ -32,7 +32,7 @@
                         "            # Adds a menu entry to administer all image galleries\n",
                         "            show_galleries: false\n",
                         "            # Adds a menu entry to administer all files\n",
-                        "            show_files: false,\n"
+                        "            show_files: false\n"
                     ],
                     "executable": false
                 },
@@ -67,12 +67,12 @@
             "add-lines": [
                 {
                     "file": ".gitignore",
-                    "content": "\n\n###> TwoForWeb/AdminBundle ###\n/node-modules/\n/assets/controllers/\n/assets/react/\n/assets/styles/\n/assets/storage/\n/assets/fonts/\n/assets/images/\n/public/storage\n###< TwoForWeb/AdminBundle ###\n",
+                    "content": "\n###> TwoForWeb/AdminBundle ###\n/node-modules/\n/assets/controllers/\n/assets/react/\n/assets/styles/\n/assets/storage/\n/assets/fonts/\n/assets/images/\n/public/storage\n###< TwoForWeb/AdminBundle ###\n",
                     "position": "bottom"
                 },
                 {
                     "file": "config/packages/asset_mapper.yaml",
-                    "content": "\n            - vendor/2forweb/adminbundle/assets/dist/",
+                    "content": "            - vendor/2forweb/adminbundle/assets/dist/\n",
                     "position": "after_target",
                     "target": "- assets/",
                     "warn_if_missing": true,
@@ -80,12 +80,12 @@
                 },
                 {
                     "file": ".env",
-                    "content": "\n\n###> TwoForWeb/AdminBundle ###\n# Change this in your .env.local to provide an obfuscated url to the admin panel\nSC_ADMIN_ROUTE_PREFIX=abcd\nSCHEME=https\n###< TwoForWeb/AdminBundle ###\n",
+                    "content": "\n###> TwoForWeb/AdminBundle ###\n# Change this in your .env.local to provide an obfuscated url to the admin panel\nSC_ADMIN_ROUTE_PREFIX=abcd\nSCHEME=https\n###< TwoForWeb/AdminBundle ###\n",
                     "position": "bottom"
                 },
                 {
                     "file": "config/packages/security.yaml",
-                    "content": "\n        app_user_provider:\n        entity:\n            class: TwoForWeb\\AdminBundle\\Entity\\AdminUser\n            property: email",
+                    "content": "        app_user_provider:\n            entity:\n                class: TwoForWeb\\AdminBundle\\Entity\\AdminUser\n                property: email\n",
                     "position": "after_target",
                     "target": "providers:",
                     "warn_if_missing": true,
@@ -93,7 +93,7 @@
                 },
                 {
                     "file": "config/packages/security.yaml",
-                    "content": "\n        # Consider replacing the main firewall with this one.\n        admin:\n            lazy: true\n            provider: app_user_provider\n            remember_me:\n                secret: '%kernel.secret%'\n                lifetime: 604800\n                path: /\n            logout:\n                path: /logout\n                target: /\n\n            form_login:\n                login_path: sc_admin_login\n                check_path: sc_admin_login\n                default_target_path: sc_admin_main\n                enable_csrf: true\n",
+                    "content": "        # Consider replacing the main firewall with this one.\n        admin:\n            lazy: true\n            provider: app_user_provider\n            remember_me:\n                secret: '%kernel.secret%'\n                lifetime: 604800\n                path: /\n            logout:\n                path: /logout\n                target: /\n\n            form_login:\n                login_path: sc_admin_login\n                check_path: sc_admin_login\n                default_target_path: sc_admin_main\n                enable_csrf: true\n",
                     "position": "after_target",
                     "target": "firewalls:",
                     "warn_if_missing": true,
@@ -101,14 +101,14 @@
                 },
                 {
                     "file": "config/packages/security.yaml",
-                    "content": "    role_hierarchy:\n        SC_ADMIN_USER:\n#           - ROLE_APP_ENTITY\n\n",
+                    "content": "    role_hierarchy:\n        SC_ADMIN_USER:\n#           - ROLE_APP_ENTITY\n",
                     "position": "before_target",
                     "target": "when@test:",
                     "requires": "symfony/security-bundle"
                 },
                 {
                     "file": "importmap.php",
-                    "content": "\n    'admin' => [\n        'path' => './vendor/2forweb/adminbundle/assets/admin.js',\n        'entrypoint' => true,\n    ],\n",
+                    "content": "    'admin' => [\n        'path' => './vendor/2forweb/adminbundle/assets/admin.js',\n        'entrypoint' => true,\n    ],\n",
                     "position": "after_target",
                     "target": "return [",
                     "warn_if_missing": true,
