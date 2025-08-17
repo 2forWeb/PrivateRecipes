@@ -3,6 +3,9 @@
         "2forweb/adminbundle": [
             "7.2.7",
             "7.2.19"
+        ],
+        "2forweb/adminbundle-blog":  [
+            "7.2.10"
         ]
     },
     "branch": "main",

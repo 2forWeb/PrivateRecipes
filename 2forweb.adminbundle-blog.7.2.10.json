@@ -1,0 +1,80 @@
+{
+    "manifests": {
+        "2forweb/adminbundle": {
+            "manifest": {
+                "bundles": {
+                    "TwoForWeb\\BlogAdminBundle\\BlogAdminBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": {
+                "config/packages/2forweb_blog_admin.yaml": {
+                    "contents": [
+                        "blog_admin:\n",
+                        "    # Whether to show the blog config entry in the menu or not\n",
+                        "    show_config_entry: true\n",
+                        "    # Whether to show the menus config entry in the menu or not\n",
+                        "    show_menu_entry: true\n",
+                        "    # Whether to show the pages entry in the menu or not\n",
+                        "    show_pages_entry: true\n",
+                        "    # Whether to show the blog entry in the menu or not\n",
+                        "    show_blog_entry: true\n",
+                        "    # The name of the main content menu entry\n",
+                        "    blog_entry_label: 'menu.blog'\n",
+                        "    # Whether to have an author for the posts or not\n",
+                        "    enable_post_authors: false\n",
+                        "    # Here you can list the codes of the pages that cannot be deleted\n",
+                        "    permanent_pages: ['about_us']\n",
+                        "    # Here you can list the codes of the menus that cannot be deleted\n",
+                        "    permanent_menu_entries: ['main', 'footer']\n",
+                        "    # The number of posts to show per page\n",
+                        "    posts_per_page: 10\n"
+                    ],
+                    "executable": false
+                },
+                "config/routes/twoforweb_admin_blog.yaml": {
+                    "contents": [
+                        "admin_bundle_blog:\n",
+                        "    resource: '@BlogAdminBundle/config/routes.yaml'\n",
+                        "    prefix: /\n"
+                    ],
+                    "executable": false
+                }
+            },
+            "add-lines": [
+                {
+                    "file": "config/packages/asset_mapper.yaml",
+                    "content": "            - vendor/2forweb/adminbundle-blog/assets/\n",
+                    "position": "after_target",
+                    "target": "- assets/",
+                    "warn_if_missing": true,
+                    "requires": "symfony/asset-mapper"
+                },
+                {
+                    "file": "config/packages/stimulus.yaml",
+                    "content": "        - '%kernel.project_dir%/vendor/2forweb/adminbundle-blog/assets/controllers'\n",
+                    "position": "after_target",
+                    "target": "- '%kernel.project_dir%/assets/controllers'",
+                    "warn_if_missing": true
+                },
+                {
+                    "file": "config/packages/security.yaml",
+                    "content": "            - ROLE_APP_BLOG_CONFIG\n            - ROLE_APP_CATEGORY\n            - ROLE_APP_TAG\n            - ROLE_APP_AUTHOR\n            - ROLE_APP_POST\n            - ROLE_APP_PAGE\n            - ROLE_APP_MENU\n        ROLE_APP_CATEGORY:\n            - ROLE_APP_CATEGORY_CREATE\n            - ROLE_APP_CATEGORY_EDIT\n            - ROLE_APP_CATEGORY_DELETE\n        ROLE_APP_TAG:\n            - ROLE_APP_TAG_CREATE\n            - ROLE_APP_TAG_EDIT\n            - ROLE_APP_TAG_DELETE\n        ROLE_APP_POST:\n            - ROLE_APP_POST_CREATE\n            - ROLE_APP_POST_EDIT\n            - ROLE_APP_POST_DELETE\n        ROLE_APP_PAGE:\n            - ROLE_APP_PAGE_CREATE\n            - ROLE_APP_PAGE_EDIT\n            - ROLE_APP_PAGE_DELETE\n        ROLE_APP_MENU:\n            - ROLE_APP_MENU_CREATE\n            - ROLE_APP_MENU_EDIT\n            - ROLE_APP_MENU_DELETE\n        ROLE_APP_AUTHOR:\n            - ROLE_APP_AUTHOR_CREATE\n            - ROLE_APP_AUTHOR_EDIT\n            - ROLE_APP_AUTHOR_DELETE\n",
+                    "position": "after_target",
+                    "target": "ROLE_SC_ADMIN_USER:",
+                    "warn_if_missing": true,
+                    "requires": "symfony/security-bundle"
+                },
+                {
+                    "file": "config/packages/stof_doctrine_extensions.yaml",
+                    "content": "            sortable: true\n            timestampable: true\n",
+                    "position": "after_target",
+                    "target": "sluggable: true\n",
+                    "warn_if_missing": true,
+                    "requires": "stof/doctrine-extensions-bundle"
+                }
+            ]
+        }
+    }
+}
