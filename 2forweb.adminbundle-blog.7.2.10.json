@@ -33,7 +33,7 @@
                     ],
                     "executable": false
                 },
-                "config/routes/twoforweb_admin_blog.yaml": {
+                "config/routes/2forweb_blog_admin.yaml": {
                     "contents": [
                         "admin_bundle_blog:\n",
                         "    resource: '@BlogAdminBundle/config/routes.yaml'\n",
