@@ -1,6 +1,6 @@
 {
     "manifests": {
-        "2forweb/adminbundle": {
+        "2forweb/adminbundle-blog": {
             "manifest": {
                 "bundles": {
                     "TwoForWeb\\BlogAdminBundle\\BlogAdminBundle": [
