@@ -6,6 +6,9 @@
         ],
         "2forweb/adminbundle-blog":  [
             "7.2.10"
+        ],
+        "2forweb/adminbundle-analytics": [
+            "0.0.1-alpha"
         ]
     },
     "branch": "main",

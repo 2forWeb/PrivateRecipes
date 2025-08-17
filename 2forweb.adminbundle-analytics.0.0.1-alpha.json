@@ -1,0 +1,34 @@
+{
+    "manifests": {
+        "2forweb/adminbundle": {
+            "manifest": {
+                "bundles": {
+                    "TwoForWeb\\BlogAdminBundle\\AnalyticsAdminBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": {
+                "config/packages/2forweb_analytics_admin.yaml": {
+                    "contents": [
+                        "analytics_admin:\n",
+                        "    # If set this to off, we won't process any page views.\n",
+                        "    analytics_on: true\n",
+                        "    # The database from GeoIP to be used to get location information.\n",
+                        "    geoip_database_path: '/usr/share/GeoIP/GeoLite2-City.mmdb'\n",
+                        "\n",
+                        "when@test:\n",
+                        "    analytics_admin:\n",
+                        "        analytics_on: false\n",
+                        "\n",
+                        "when@dev:\n",
+                        "    analytics_admin:\n",
+                        "        # set this to true to fake IPs when seeing the website from localhost\n",
+                        "        analytics_dev_mode: true\n"
+                    ],
+                    "executable": false
+                }
+            }
+        }
+    }
+}
