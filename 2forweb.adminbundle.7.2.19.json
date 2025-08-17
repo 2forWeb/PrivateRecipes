@@ -249,7 +249,7 @@
                 },
                 {
                     "file": "config/packages/security.yaml",
-                    "content": "    role_hierarchy:\n        SC_ADMIN_USER:\n#           - ROLE_APP_ENTITY\n\n",
+                    "content": "    role_hierarchy:\n        ROLE_SC_ADMIN_USER:\n#           - ROLE_APP_ENTITY\n\n",
                     "position": "before_target",
                     "target": "when@test:",
                     "requires": "symfony/security-bundle"

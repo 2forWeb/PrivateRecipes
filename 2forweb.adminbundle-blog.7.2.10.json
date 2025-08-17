@@ -70,7 +70,7 @@
                     "file": "config/packages/stof_doctrine_extensions.yaml",
                     "content": "            sortable: true\n            timestampable: true\n",
                     "position": "after_target",
-                    "target": "sluggable: true\n",
+                    "target": "sluggable: true",
                     "warn_if_missing": true,
                     "requires": "stof/doctrine-extensions-bundle"
                 }
