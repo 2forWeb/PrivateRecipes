@@ -200,16 +200,6 @@
                         "        - '%kernel.project_dir%/vendor/2forweb/adminbundle/assets/controllers'\n"
                     ],
                     "executable": false
-                },
-                "config/packages/stof_doctrine_extensions.yaml": {
-                    "contents": [
-                        "stof_doctrine_extensions:\n",
-                        "    default_locale: en_US\n",
-                        "    orm:\n",
-                        "        default:\n",
-                        "            sluggable: true\n"
-                    ],
-                    "executable": false
                 }
             },
             "add-lines": [
@@ -261,6 +251,13 @@
                     "target": "return [",
                     "warn_if_missing": true,
                     "requires": "symfony/asset-mapper"
+                },
+                {
+                    "file": "config/packages/stof_doctrine_extensions.yaml",
+                    "content": "    orm:\n        default:\n            sluggable: true\n",
+                    "position": "bottom",
+                    "warn_if_missing": true,
+                    "requires": "stof/doctrine-extensions-bundle"
                 }
             ],
             "ref": "c1e8f020a70f35e3279ed639ccce2934b299e3b3"
