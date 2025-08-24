@@ -205,7 +205,7 @@
             "add-lines": [
                 {
                     "file": ".gitignore",
-                    "content": "\n###> TwoForWeb/AdminBundle ###\n/node_modules/\n/assets/controllers/\n/assets/react/\n/assets/styles/\n/assets/storage/\n/assets/fonts/\n/assets/images/\n/public/storage\n###< TwoForWeb/AdminBundle ###\n",
+                    "content": "\n###> TwoForWeb/AdminBundle ###\n/node_modules/\n/assets/controllers/\n/assets/react/\n/assets/storage/\n/assets/fonts/\n/assets/images/\n/public/storage\n###< TwoForWeb/AdminBundle ###\n",
                     "position": "bottom"
                 },
                 {
