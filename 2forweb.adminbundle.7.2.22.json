@@ -169,6 +169,8 @@
                         "admin:\n",
                         "    favicon_entry: 'images/favicon.png'\n",
                         "    favicon_type: 'image/png'\n",
+                        "    # The template to render on maintenance mode\n",
+                        "    maintenance_template: '@Admin/maintenance.html.twig'\n",
                         "    storage:\n",
                         "        # The storage driver to use. It can be none, filesystem or dsn\n",
                         "        driver: 'none'\n",
