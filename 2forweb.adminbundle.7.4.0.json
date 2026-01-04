@@ -1,0 +1,267 @@
+{
+    "manifests": {
+        "2forweb/adminbundle": {
+            "manifest": {
+                "bundles": {
+                    "TwoForWeb\\AdminBundle\\AdminBundle": [
+                        "all"
+                    ]
+                }
+            },
+            "files": {
+                "assets/admin.js": {
+                    "contents": [
+                        "import './stimulus_bootstrap.js';\n",
+                        "import '../vendor/2forweb/adminbundle/assets/admin-styles/app.css';\n"
+                    ],
+                    "executable": false
+                },
+                "bin/docker": {
+                    "contents": [
+                        "#!/usr/bin/env php\n",
+                        "<?php\n",
+                        "\n",
+                        "$docker_states = ['up', 'down'];\n",
+                        "\n",
+                        "$docker_commands = [\n",
+                        "    'up' => 'up -d',\n",
+                        "    'down' => 'down --remove-orphans',\n",
+                        "];\n",
+                        "\n",
+                        "$symfony_commands = [\n",
+                        "    'up' => 'symfony serve -d --allow-all-ip',\n",
+                        "    'down' => 'symfony server:stop',\n",
+                        "];\n",
+                        "\n",
+                        "$usage_message = 'Usage:\n",
+                        "\n",
+                        "docker up - Starts docker using the docker-compose command and the dev env\n",
+                        "docker down - Stops docker using the docker-compose command and the dev env\n",
+                        "\n",
+                        "docker up [env] - Starts docker using the docker-compose command and the env specified\n",
+                        "docker down [env] - Stops docker using the docker-compose command and the env specified\n",
+                        "';\n",
+                        "\n",
+                        "if ($argc < 2) {\n",
+                        "    printf($usage_message);\n",
+                        "    exit(0);\n",
+                        "}\n",
+                        "\n",
+                        "if (!in_array(strtolower($argv[1]), $docker_states)) {\n",
+                        "    printf(\"Invalid docker state!\\n\\n%s\", $usage_message);\n",
+                        "    exit(1);\n",
+                        "}\n",
+                        "\n",
+                        "$profileName = '';\n",
+                        "\n",
+                        "if ($argc > 2) {\n",
+                        "    $profileName = $argv[2];\n",
+                        "} else {\n",
+                        "    $profileName = 'dev';\n",
+                        "}\n",
+                        "\n",
+                        "$commands = [\n",
+                        "    sprintf(\n",
+                        "        \"%s docker-compose %s\",\n",
+                        "        $profileName !== 'dev' ? sprintf(\"MYSQL_DATABASE=app_%s \", $profileName) : '',\n",
+                        "        $docker_commands[strtolower($argv[1])],\n",
+                        "    ),\n",
+                        "\n",
+                        "    sprintf(\n",
+                        "        \"%s %s\",\n",
+                        "        $profileName !== 'dev' ? sprintf(\"APP_ENV=%s\", $profileName) : '',\n",
+                        "        $symfony_commands[strtolower($argv[1])],\n",
+                        "    ),\n",
+                        "];\n",
+                        "\n",
+                        "foreach ($commands as $command) {\n",
+                        "    printf(\"Executing: %s\\n\\n\", $command);\n",
+                        "\n",
+                        "    passthru($command);\n",
+                        "\n",
+                        "    printf(\"\\n\");\n",
+                        "}\n"
+                    ],
+                    "executable": true
+                },
+                "bin/phpcsfixer": {
+                    "contents": [
+                        "#! /bin/bash\n",
+                        "\n",
+                        "./vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php -vvv --dry-run --using-cache=no\n"
+                    ],
+                    "executable": true
+                },
+                "bin/phpstan": {
+                    "contents": [
+                        "#! /bin/sh\n",
+                        "\n",
+                        "./vendor/bin/phpstan analyse -c phpstan.dist.neon\n"
+                    ],
+                    "executable": true
+                },
+                "bin/tests": {
+                    "contents": [
+                        "#! /usr/bin/sh\n",
+                        "\n",
+                        "echo '-------------- Performing Tests -----------\\n'\n",
+                        "\n",
+                        "echo '-------------- ESLint and Stylelint -------\\n'\n",
+                        "\n",
+                        "npm run lint\n",
+                        "\n",
+                        "if [ $? != 0 ]\n",
+                        "then\n",
+                        "    return $?\n",
+                        "fi\n",
+                        "\n",
+                        "echo '-------------- lint:twig -----------------\\n'\n",
+                        "\n",
+                        "./bin/console lint:twig ./templates\n",
+                        "\n",
+                        "if [ $? != 0 ]\n",
+                        "then\n",
+                        "    return $?\n",
+                        "fi\n",
+                        "\n",
+                        "echo '-------------- lint:yaml -----------------\\n'\n",
+                        "\n",
+                        "./bin/console lint:yaml ./config ./vendor/2forweb/adminbundle/config\n",
+                        "\n",
+                        "if [ $? != 0 ]\n",
+                        "then\n",
+                        "    return $?\n",
+                        "fi\n",
+                        "\n",
+                        "echo '-------------- PHPCSFixer ----------------\\n'\n",
+                        "\n",
+                        "./bin/phpcsfixer\n",
+                        "\n",
+                        "if [ $? != 0 ]\n",
+                        "then\n",
+                        "    return $?\n",
+                        "fi\n",
+                        "\n",
+                        "echo '-------------- PHPStan ----------------\\n'\n",
+                        "\n",
+                        "./bin/phpstan\n",
+                        "\n",
+                        "if [ $? != 0 ]\n",
+                        "then\n",
+                        "    return $?\n",
+                        "fi\n",
+                        "\n",
+                        "echo '-------------- PHPUnit ---------------\\n'\n",
+                        "\n",
+                        "./bin/phpunit\n",
+                        "\n",
+                        "if [ $? != 0 ]\n",
+                        "then\n",
+                        "    return $?\n",
+                        "fi\n",
+                        "\n",
+                        "return 0\n"
+                    ],
+                    "executable": true
+                },
+                "config/packages/2forweb_admin.yaml": {
+                    "contents": [
+                        "admin:\n",
+                        "    favicon_entry: 'images/favicon.png'\n",
+                        "    favicon_type: 'image/png'\n",
+                        "    # The template to render on maintenance mode\n",
+                        "    maintenance_template: '@Admin/maintenance/index.html.twig'\n",
+                        "    storage:\n",
+                        "        # The storage driver to use. It can be none, filesystem or dsn\n",
+                        "        driver: 'none'\n",
+                        "        public_path: /public/storage\n",
+                        "        public_url: /storage\n",
+                        "        private_path: /assets/storage\n",
+                        "        # Json string with storage metadata needed to log in to the dsn storage\n",
+                        "        storage_metadata: ''\n",
+                        "        # The default allowed image mime_types\n",
+                        "        image_mime_types: ['image/jpeg', 'image/jpg', 'image/png', 'image/gif', 'image/svg+xml']\n",
+                        "        # The default allowed file mime_types\n",
+                        "        file_mime_types: ['application/pdf', 'application/vnd.ms-excel', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'plain/text']\n",
+                        "    menu_entries:\n",
+                        "        # Adds a menu entry to administer all images uploaded\n",
+                        "        show_images: false\n",
+                        "        # Adds a menu entry to administer all image galleries\n",
+                        "        show_galleries: false\n",
+                        "        # Adds a menu entry to administer all files\n",
+                        "        show_files: false\n"
+                    ],
+                    "executable": false
+                },
+                "config/packages/stimulus.yaml": {
+                    "contents": [
+                        "stimulus:\n",
+                        "    controller_paths:\n",
+                        "        - '%kernel.project_dir%/assets/controllers'\n",
+                        "        - '%kernel.project_dir%/vendor/2forweb/adminbundle/assets/controllers'\n"
+                    ],
+                    "executable": false
+                }
+            },
+            "add-lines": [
+                {
+                    "file": ".gitignore",
+                    "content": "\n###> TwoForWeb/AdminBundle ###\n/node_modules/\n/assets/controllers/\n/assets/react/\n/assets/storage/\n/assets/fonts/\n/assets/images/\n/public/storage\n###< TwoForWeb/AdminBundle ###\n",
+                    "position": "bottom"
+                },
+                {
+                    "file": "config/packages/asset_mapper.yaml",
+                    "content": "            - vendor/2forweb/adminbundle/assets/\n",
+                    "position": "after_target",
+                    "target": "- assets/",
+                    "warn_if_missing": true,
+                    "requires": "symfony/asset-mapper"
+                },
+                {
+                    "file": ".env",
+                    "content": "\n###> TwoForWeb/AdminBundle ###\n# Change this in your .env.local to provide an obfuscated url to the admin panel\nSC_ADMIN_ROUTE_PREFIX=abcd\nSCHEME=https\n###< TwoForWeb/AdminBundle ###\n",
+                    "position": "bottom"
+                },
+                {
+                    "file": "config/packages/security.yaml",
+                    "content": "        app_user_provider:\n            entity:\n                class: TwoForWeb\\AdminBundle\\Entity\\AdminUser\n                property: email\n",
+                    "position": "after_target",
+                    "target": "providers:",
+                    "warn_if_missing": true,
+                    "requires": "symfony/security-bundle"
+                },
+                {
+                    "file": "config/packages/security.yaml",
+                    "content": "        # Consider replacing the main firewall with this one.\n        admin:\n            lazy: true\n            provider: app_user_provider\n            remember_me:\n                secret: '%kernel.secret%'\n                lifetime: 604800\n                path: /\n            logout:\n                path: /logout\n                target: /\n\n            form_login:\n                login_path: sc_admin_login\n                check_path: sc_admin_login\n                default_target_path: sc_admin_main\n                enable_csrf: true\n",
+                    "position": "after_target",
+                    "target": "firewalls:",
+                    "warn_if_missing": true,
+                    "requires": "symfony/security-bundle"
+                },
+                {
+                    "file": "config/packages/security.yaml",
+                    "content": "    role_hierarchy:\n        ROLE_SC_ADMIN_USER:\n#           - ROLE_APP_ENTITY\n\n",
+                    "position": "before_target",
+                    "target": "when@test:",
+                    "requires": "symfony/security-bundle"
+                },
+                {
+                    "file": "importmap.php",
+                    "content": "    'admin' => [\n        'path' => './assets/admin.js',\n        'entrypoint' => true,\n    ],\n",
+                    "position": "after_target",
+                    "target": "return [",
+                    "warn_if_missing": true,
+                    "requires": "symfony/asset-mapper"
+                },
+                {
+                    "file": "config/packages/stof_doctrine_extensions.yaml",
+                    "content": "    orm:\n        default:\n            sluggable: true\n",
+                    "position": "bottom",
+                    "warn_if_missing": true,
+                    "requires": "stof/doctrine-extensions-bundle"
+                }
+            ],
+            "ref": "c1e8f020a70f35e3279ed639ccce2934b299e3b3"
+        }
+    }
+}
